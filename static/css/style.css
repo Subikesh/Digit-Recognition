@@ -1,0 +1,42 @@
+body {
+    background-color: dimgray;
+    color: aliceblue;
+    padding: 1vh 1.7vw;
+    font-size: 1.15em;
+    box-sizing: border-box;
+}
+.container {
+    max-width: 650px;
+    margin: auto;
+}
+a {
+    text-decoration: none;
+    color: whitesmoke;
+}
+p {
+    max-width: 650px;
+}
+#canvas-draw {
+    background-color: black;
+    border: 1px solid white;
+    display: block;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    touch-action: none;
+}
+.red-button {
+    border: 0px;
+    background-color: #e63838;
+    padding: 15px 18px 15px 17px;
+    margin-left: 70px;
+    margin-bottom: 30px;
+    border-radius: 5px;
+    color: white;
+    display: inline;
+}
+form {
+    display: inline;
+}
+#message {
+    margin-top: 10px;
+}
