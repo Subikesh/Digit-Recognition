@@ -92,7 +92,7 @@ function redraw() {
     
     context.strokeStyle = "#ffffff";
     context.lineJoin = "round";
-    context.lineWidth = 15;
+    context.lineWidth = 17;
     context.shadowColor = "#ffffff";
     context.shadowOffsetX = 0;
     context.shadowOffsetY = 0;

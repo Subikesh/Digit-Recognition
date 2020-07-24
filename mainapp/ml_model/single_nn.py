@@ -39,17 +39,14 @@ class Layer:
 		elif self.activation == "sigmoid":
 			self.A = 1/(1+np.exp(-self.Z))
 		elif self.activation == "softmax":
-			# t = np.exp(self.Z)
-			# sum_row = np.sum(t, axis=0)
-			# self.A = t / sum_row
 			self.A = np.exp(self.Z) / np.sum(np.exp(self.Z), axis=0, keepdims=True)
 
 		return self.A
 
 	# Method to back propagate for the specific layer
-	# Input : dA, output(for last layer only)
+	# Input : dA, output(for last layer only), lambd for L2 regularization
 	# Output : dA_prev, dW, db
-	def back_prop(self, dA = 0, output=None):
+	def back_prop(self, dA = 0, output=None, lambd = 0):
 		if self.type == "output":
 			if self.activation == "sigmoid" or self.activation == "softmax":
 				dZ = self.A - output
@@ -58,6 +55,9 @@ class Layer:
 		
 		m = dZ.shape[1]
 		self.dW = np.dot(dZ, self.A_prev.T)/m
+		# Implementing L2 regularisation
+		if lambd != 0:
+			self.dW = self.dW + (lambd/m) * self.W
 		self.db = np.sum(dZ, axis=1, keepdims=True)/m
 		dA_prev = np.dot(self.W.T, dZ)
 		return dA_prev

@@ -54,26 +54,35 @@ class neural_network:
         return A
     
     # Method to compute the cost for predictions and output using cross-entropy loss
-    def compute_cost(self, AL, Y):
+    # lambd is the regularization constant for L2 regularisation
+    def compute_cost(self, AL, Y, lambd = 0):        
+        m = Y.shape[1]
         # If Y is in shape (10, m) after one-hot encoding
-        AL = np.maximum(AL, np.full(AL.shape, 1e-9))
         cost_per_ex = -1*np.sum(np.multiply(Y, np.log(AL)), axis=0, keepdims=True)
         avg_cost = np.mean(cost_per_ex)
+        if lambd != 0:
+            # Calculation forbenius norm
+            norm = lambda W: np.sum(np.square(W))
+            norm_cost = avg_cost + lambd/(2*m) * sum([norm(layer.W) for layer in self.layers[1:]])
+            return norm_cost 
         return avg_cost
 
     # Method to back propagate L layers which gets the output to update the weights and biases
-    def L_layer_backward(self, Y):        
-        dA = self.layers[-1].back_prop(output=Y)
+    def L_layer_backward(self, Y, lambd = 0):        
+        dA = self.layers[-1].back_prop(output=Y, lambd=lambd)
         for i in reversed(range(1, len(self.layers)-1)):
-            dA = self.layers[i].back_prop(dA)
+            dA = self.layers[i].back_prop(dA=dA, lambd=lambd)
     
     # Method to update parameters for all the layers with the given learning rate
     def update_params(self, learning_rate):
         for i in range(1, len(self.layers)):
             self.layers[i].update_params(learning_rate)
 
-    # Main method to which training data is given and the model is trained on the data
-    def fit(self, X, Y, n_epochs = 500, verbose = 100, learning_rate = 0.01, append=False, mini_batch_size=None):
+    # Main method to which training data is given and the model is trained on the data. 
+    # lambd is the regularization constant of L2 regularization
+    def fit(self, X, Y, n_epochs = 500, verbose = 100, 
+        learning_rate = 0.01, append=False, mini_batch_size=None, lambd=0
+    ):
 
         costs = []
         seed = 0
@@ -104,15 +113,15 @@ class neural_network:
                 # Get the predictions for X
                 prediction = self.L_layer_forward(X)
                 
-                cost = self.compute_cost(prediction, Y)
-                self.L_layer_backward(Y)
+                cost = self.compute_cost(prediction, Y, lambd=lambd)
+                self.L_layer_backward(Y, lambd=lambd)
                 self.update_params(learning_rate)
 
             if n % verbose == 0:
                 elapsed = time.time() - start
                 print("Cost after", n, "epochs is", cost, ". Elapsed Time : ", elapsed)
                 start = time.time()
-            if n%100 == 0:
+            if n%20 == 0:
                 costs.append(cost)
         print("Cost after {} epochs is {}. Elapsed Time : {}".format(n_epochs, cost, elapsed))
         costs.append(cost)
@@ -121,7 +130,6 @@ class neural_network:
     # Make predictions for given X
     def predict(self, X):
         # X = X.reshape(28*28, X.shape[1])
-        X = X/255
         return self.L_layer_forward(np.array(X))
 
     # Stores the weights and biases in the file in the ascending order of layers

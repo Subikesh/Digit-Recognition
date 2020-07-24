@@ -26,7 +26,8 @@ def compress(image):
             compress[i, j] = np.mean(image[i*15:(i+1)*15, j*15:(j+1)*15])
     # plt.imshow(compress, cmap='Greys_r')
     # plt.show()
-    return compress
+    # Returning the normalised version of image
+    return compress/255
 
 def make_prediction(image):
     model = neural_network()
