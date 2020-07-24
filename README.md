@@ -21,6 +21,7 @@ The implementation of the neural network class can be found in [this](https://gi
       Contains list of single layer objects and implementation of gradient descent is done here.
 
 The model creation is done in [ml_model notebook](https://github.com/Subikesh/Digit-Recognition/blob/master/mainapp/ml_model/ml_model.ipynb).
+The model performs 99.3% accuracy on training data and 97.5% on test data after regularization.
 For more information about the implementation, it is explained in [ml_model](https://github.com/Subikesh/Digit-Recognition/tree/master/mainapp/ml_model) directory.
 
 ## Making prediction
