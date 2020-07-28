@@ -1,6 +1,6 @@
 # Digit-Recognition
 
-An app on hand-written digit recognition done on MNIST digits dataset using deep learning. The project is done from scratch using just numpy and pandas. For a demo of this app [click here](https://subikeshdigits.herokuapp.com).
+An app on hand-written digit recognition done on MNIST digits dataset using deep learning. The project is done from scratch using just numpy and pandas. **For a demo of this app [click here](https://subikeshdigits.herokuapp.com).**
 
 ## Dataset used
 
