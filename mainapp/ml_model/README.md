@@ -32,6 +32,7 @@ python File - [neural_net.py](https://github.com/Subikesh/Digit-Recognition/blob
     * verbose - how frequent should it print the cost
     * learning_rate
     * mini_batch_size
+    * lambd - regularization constant for L2 regularization
   
   * predict - To make predictions for the given input
   * cache and retrieve weights - To save the trained model in *cache.npy* file so that the model need not be trained again.
@@ -42,6 +43,6 @@ Please run the [dataset notebook](https://github.com/Subikesh/Digit-Recognition/
 
 Jupyter Notebook - [ml_model.ipynb](https://github.com/Subikesh/Digit-Recognition/blob/master/mainapp/ml_model/ml_model.ipynb)
 
-The datasets are loaded from the csv files and the objects of single_nn and neural_network is created here. Then the predictions are done on the test data and the cost is displayed.
+The datasets are loaded from the csv files and the objects of single_nn and neural_network is created here. Then the predictions are done on the test data and the cost is displayed. The accuracy of the model on training and test data is also calculated here.
 
 The model created here is stored in **cache.npy** which is retrieved in views.py to make predictions for the user's drawing.
