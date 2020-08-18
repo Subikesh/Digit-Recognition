@@ -5,6 +5,9 @@ body {
     font-size: 1.15em;
     box-sizing: border-box;
 }
+h1 {
+    font-size: 3em;
+}
 .container {
     max-width: 650px;
     margin: auto;
@@ -39,4 +42,5 @@ form {
 }
 #message {
     margin-top: 10px;
+    font-size: 1.4em;
 }
